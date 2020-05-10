@@ -16,7 +16,7 @@ import json
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-secret = os.path(BASE_DIR, 'production.json')
+secret = os.path.join(BASE_DIR, 'production.json')
 
 with open(secret) as f:
     secrets = json.loads(f.read())
@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 
 INSTALLED_APPS += [
     'apis',
+    'contents',
 ]
 
 MIDDLEWARE = [
@@ -71,7 +72,7 @@ ROOT_URLCONF = 'ssamstagram.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

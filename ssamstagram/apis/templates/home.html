@@ -1,0 +1,24 @@
+{% extends "_base.html" %}
+{% block title %}
+home
+{% endblock title %}
+{% block body %}
+<h1>로그인</h1>
+{{ request.user }}
+<input type="text" name="username" id="username">
+<input type="password" name="password" id="password">
+<button id='login-submit'>로그인</button>
+
+
+<script>
+    $(document).ready(function () {
+        $('#login-submit').click(function () {
+            $.post('/apis/v1/user/login/', { 'username': $('#username').val(), 'password': $('#password').val() }, function () {
+                location.reload();
+            }).fail(function (data) {
+                alert(data.responseJSON.message);
+            });
+        });
+    });
+</script>
+{% endblock body %}
