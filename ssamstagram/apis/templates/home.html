@@ -5,7 +5,7 @@ home
 {% block body %}
 <h1>로그인</h1>
 {{ request.user }}
-
+<button id='logout'>로그아웃</button>
 <script>
     $(document).ready(function () {
         $('#logout').click(function () {
