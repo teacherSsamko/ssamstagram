@@ -5,7 +5,7 @@ from django.views import View
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.core.validators import validate_email, ValidationError
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
 class BaseView(View):
@@ -59,4 +59,10 @@ class UserLoginView(BaseView):
             return self.response(message='입력 정보를 확인해주세요.', status=400)
         login(request, user)
 
-        return self.response
+        return self.response()
+
+
+class UserLogoutView(BaseView):
+    def get(self, request):
+        logout(request)
+        return self.response()
