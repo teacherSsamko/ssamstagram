@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views import View
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.core.validators import validate_email, ValidationError
 
 
 class BaseView(View):
@@ -29,8 +30,10 @@ class UserCreateView(BaseView):
         if not password:
             return self.response(message='비밀번호를 입력해주세요.', status=400)
         email = request.POST.get('email', '')
-        if not email:
-            return self.response(message='이메일을 입력해주세요.', status=400)
+        try:
+            validate_email(email)
+        except ValidationError:
+            return self.response(message='올바른 이메일을 입력해주세요.', status=400)
 
         # 예외 처리(아이디 중복)
         try:
